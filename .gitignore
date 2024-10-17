@@ -1,0 +1,6 @@
+.env
+yolo11n_ncnn_model
+
+*.jpg
+*.pt
+*.torchscript
