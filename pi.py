@@ -21,11 +21,14 @@ while True:
     # Run YOLO11 inference on the frame
     results = model(frame)
 
-    # Visualize the results on the frame
-    annotated_frame = results[0].plot()
+    # Print result
+    print(results)
 
-    # Display the resulting frame
-    cv2.imshow("Camera", annotated_frame)
+    # # Visualize the results on the frame
+    # annotated_frame = results[0].plot()
+
+    # # Display the resulting frame
+    # cv2.imshow("Camera", annotated_frame)
 
     # Break the loop if 'q' is pressed
     if cv2.waitKey(1) == ord("q"):
