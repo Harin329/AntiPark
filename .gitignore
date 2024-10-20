@@ -1,5 +1,7 @@
 .env
+env/
 yolo11n_ncnn_model
+__pycache__/
 
 *.jpg
 *.pt

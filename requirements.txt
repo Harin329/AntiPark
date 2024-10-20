@@ -1,2 +1,4 @@
 ultralytics[export]
-picamera2
+selenium
+python-dotenv
+fastapi[standard]
