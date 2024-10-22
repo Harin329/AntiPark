@@ -78,5 +78,3 @@ def payParking():
         print(e)
         driver.close()
         return False
-
-payParking()
