@@ -31,19 +31,18 @@ def payParking():
     options.add_argument("--disable-extensions")
     options.add_argument("--disable-software-rasterizer")
     options.add_argument("--disable-accelerated-2d-canvas")
-    options.addArguments("--aggressive-cache-discard")
-    options.addArguments("--disable-cache")
-    options.addArguments("--disable-application-cache")
-    options.addArguments("--disable-offline-load-stale-cache")
-    options.addArguments("--disk-cache-size=0")
+    options.add_argument("--aggressive-cache-discard")
+    options.add_argument("--disable-cache")
+    options.add_argument("--disable-application-cache")
+    options.add_argument("--disable-offline-load-stale-cache")
+    options.add_argument("--disk-cache-size=0")
     driver = webdriver.Firefox(options=options)
     try:
         driver.get("https://parking.honkmobile.com/hourly/zones/" + str(ZONE_ID))
         time.sleep(sleepTime)
 
-        # print page inner HTML elements only
-        print(driver.get_attribute('innerHTML'))
-
+        print(driver.find_element(By.TAG_NAME, "body").text)
+        
         # Click on 1 Hour option
         elem = driver.find_element(By.XPATH, "//*[text()='" + str(TIME) + "']")
         elem.click()
@@ -79,3 +78,5 @@ def payParking():
         print(e)
         driver.close()
         return False
+
+payParking()
