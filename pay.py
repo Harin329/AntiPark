@@ -1,6 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
+from selenium.webdriver.firefox.options import Options
 import time
 from dotenv import load_dotenv
 import os
@@ -17,7 +18,9 @@ def payParking():
     PASSWORD = os.getenv('PASSWORD')
 
     # Visit https://parking.honkmobile.com/hourly/zones/ZONE_ID
-    driver = webdriver.Chrome()
+    options = Options()
+    options.add_argument('--headless')
+    driver = webdriver.Firefox(options=options)
     driver.get("https://parking.honkmobile.com/hourly/zones/" + str(ZONE_ID))
     time.sleep(sleepTime)
 
