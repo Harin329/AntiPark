@@ -19,39 +19,63 @@ def payParking():
 
     # Visit https://parking.honkmobile.com/hourly/zones/ZONE_ID
     options = Options()
+    options.add_argument('--window-size=1920,1080')
     options.add_argument('--headless')
+    options.add_argument("user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36")
+    # use less cpu
+    options.add_argument("disable-infobars")
+    options.add_argument("--disable-crash-reporter");
+    options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-gpu")
+    options.add_argument("--disable-extensions")
+    options.add_argument("--disable-software-rasterizer")
+    options.add_argument("--disable-accelerated-2d-canvas")
+    options.addArguments("--aggressive-cache-discard")
+    options.addArguments("--disable-cache")
+    options.addArguments("--disable-application-cache")
+    options.addArguments("--disable-offline-load-stale-cache")
+    options.addArguments("--disk-cache-size=0")
     driver = webdriver.Firefox(options=options)
-    driver.get("https://parking.honkmobile.com/hourly/zones/" + str(ZONE_ID))
-    time.sleep(sleepTime)
-
-    # Click on 1 Hour option
-    elem = driver.find_element(By.XPATH, "//*[text()='" + str(TIME) + "']")
-    elem.click()
-    time.sleep(sleepTime)
-
-    # If login is needed
-    loginElement = driver.find_element(By.XPATH, "//*[text()='Log In']")
-    signupElement = driver.find_element(By.XPATH, "//*[text()='Sign Up']")
-
-    if loginElement.is_displayed() and signupElement.is_displayed():
-        loginElement.click()
-        time.sleep(sleepTime)
-        loginWithEmailElement = driver.find_element(By.XPATH, "//*[contains(text(),'Email')]")
-        loginWithEmailElement.click()
-        emailInput = driver.find_element(By.XPATH, "//*[@type='email']")
-        emailInput.send_keys(EMAIL)
-        passwordInput = driver.find_element(By.XPATH, "//*[@type='password']")
-        passwordInput.send_keys(PASSWORD)
-        passwordInput.send_keys(Keys.RETURN)
+    try:
+        driver.get("https://parking.honkmobile.com/hourly/zones/" + str(ZONE_ID))
         time.sleep(sleepTime)
 
-    # Debug utility
-    # driver.get_screenshot_as_file("screenshot.png")
+        # print page inner HTML elements only
+        print(driver.get_attribute('innerHTML'))
 
-    # Click Pay & Park
-    payAndParkElement = driver.find_element(By.XPATH, "//*[text()='Pay " + str(COST) + " & Park']")
-    payAndParkElement.click()
-    time.sleep(sleepTime)
-    isSuccess = "Please select a different payment method." in driver.page_source
-    driver.close()
-    return isSuccess
+        # Click on 1 Hour option
+        elem = driver.find_element(By.XPATH, "//*[text()='" + str(TIME) + "']")
+        elem.click()
+        time.sleep(sleepTime)
+
+        # If login is needed
+        loginElement = driver.find_element(By.XPATH, "//*[text()='Log In']")
+        signupElement = driver.find_element(By.XPATH, "//*[text()='Sign Up']")
+
+        if loginElement.is_displayed() and signupElement.is_displayed():
+            loginElement.click()
+            time.sleep(sleepTime)
+            loginWithEmailElement = driver.find_element(By.XPATH, "//*[contains(text(),'Email')]")
+            loginWithEmailElement.click()
+            emailInput = driver.find_element(By.XPATH, "//*[@type='email']")
+            emailInput.send_keys(EMAIL)
+            passwordInput = driver.find_element(By.XPATH, "//*[@type='password']")
+            passwordInput.send_keys(PASSWORD)
+            passwordInput.send_keys(Keys.RETURN)
+            time.sleep(sleepTime)
+
+        # Debug utility
+        # driver.get_screenshot_as_file("screenshot.png")
+
+        # Click Pay & Park
+        payAndParkElement = driver.find_element(By.XPATH, "//*[text()='Pay " + str(COST) + " & Park']")
+        payAndParkElement.click()
+        time.sleep(sleepTime)
+        isSuccess = "Please select a different payment method." in driver.page_source
+        driver.close()
+        return isSuccess
+    except Exception as e:
+        print(e)
+        driver.close()
+        return False
