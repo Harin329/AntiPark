@@ -73,6 +73,8 @@ def payParking():
         time.sleep(sleepTime)
         isSuccess = "Please select a different payment method." in driver.page_source
         driver.close()
+        driver.quit()
+        time.sleep(sleepTime)
         return isSuccess
     except Exception as e:
         print(e)
