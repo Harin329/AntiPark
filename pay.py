@@ -71,7 +71,12 @@ def payParking():
         payAndParkElement = driver.find_element(By.XPATH, "//*[text()='Pay " + str(COST) + " & Park']")
         payAndParkElement.click()
         time.sleep(sleepTime)
-        isSuccess = "Please select a different payment method." in driver.page_source
+
+        # Click Confirm
+        confirmElement = driver.find_element(By.XPATH, "//*[text()='Confirm']")
+        confirmElement.click()
+        time.sleep(sleepTime)
+        isSuccess = True
         driver.close()
         driver.quit()
         time.sleep(sleepTime)
