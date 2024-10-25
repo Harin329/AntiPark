@@ -24,7 +24,7 @@ def payParking():
     options.add_argument("user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36")
     # use less cpu
     options.add_argument("disable-infobars")
-    options.add_argument("--disable-crash-reporter");
+    options.add_argument("--disable-crash-reporter")
     options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-gpu")
@@ -78,7 +78,7 @@ def payParking():
         # Click Confirm
         confirmElement = driver.find_element(By.XPATH, "//*[text()='Confirm']")
         confirmElement.click()
-        time.sleep(sleepTime)
+        time.sleep(sleepTime * 10)
         driver.close()
         driver.quit()
         time.sleep(sleepTime)
